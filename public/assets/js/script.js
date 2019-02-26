@@ -62,7 +62,7 @@ $(document).ready(function() {
     newBurgerEntry.text(postedBurger.id + ". " + postedBurger.burger_name);
     var devourBtn = $("<button>");
     devourBtn.text("Devour it!");
-    devourBtn.addClass("p-1")
+    devourBtn.addClass("p-1 btn btn-secondary mb-2")
     $('#listedBurgers').append(newBurgerEntry);
     $('#devourBtnCont').append(devourBtn);
   }
@@ -85,7 +85,6 @@ $(document).ready(function() {
 
   //adds a new burger to database
   function insertBurger(data) {
-    
       var addedBurger = {
         burger_name: $("#burgerInput").val().trim(),
         devoured: false,
@@ -95,18 +94,8 @@ $(document).ready(function() {
       $.post("/api/burgers", addedBurger, getBurgerList);
       console.log(customerId);
    
- 
-
-
-   
     $("#burgerInput").val("");
   }
-
-
-  $("#submitBtnCust").on("click", function(){
-    event.preventDefault();
-    insertCustomer();
-  });
 
   $("#submitBtn").on("click", function(){
     event.preventDefault();
