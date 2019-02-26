@@ -13,15 +13,15 @@ module.exports = function(sequelize, DataTypes) {
       }
     });
 
-    burgers.associate = function(models) {
-        // We're saying that a burger should be eaten by a customer
-        //A burger cant be eaten without a customer eating it due to the foreign key constraint
-        burgers.belongsTo(models.customer, {
-          foreignKey: {
-            allowNull: false
-          }
-        });
-    };
+    // burgers.associate = function(models) {
+    //     // We're saying that a burger should be eaten by a customer
+    //     //A burger cant be eaten without a customer eating it due to the foreign key constraint
+    //     burgers.belongsTo(models.customer, {
+    //       foreignKey: {
+    //         allowNull: false
+    //       }
+    //     });
+    // };
 
     return burgers;
-}
+};
