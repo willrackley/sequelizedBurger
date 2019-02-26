@@ -13,6 +13,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 require("./routes/burgers-api-routes.js")(app);
+require("./routes/customer-api-routes.js")(app);
 
 
 db.sequelize.sync({ force: true }).then(function() {
