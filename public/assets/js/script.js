@@ -47,6 +47,7 @@ $(document).ready(function() {
   function initializeRows() {
     $('#listedBurgers').empty();
     $('#devourBtnCont').empty();
+    $('#eatenContainer').empty();
     var burgersToAdd = [];
     for (var i = 0; i < postedBurger.length; i++) {
       burgersToAdd.push(createNewRow(postedBurger[i]));
@@ -61,10 +62,21 @@ $(document).ready(function() {
     newBurgerEntry.addClass("border bg-white p-1 mb-2");
     newBurgerEntry.text(postedBurger.id + ". " + postedBurger.burger_name);
     var devourBtn = $("<button>");
+    devourBtn.addClass("p-1 btn btn-secondary mb-2 devoured");
     devourBtn.text("Devour it!");
-    devourBtn.addClass("p-1 btn btn-secondary mb-2")
+    devourBtn.attr("tableId", postedBurger.id);
+    devourBtn.attr("burgerName", postedBurger.burger_name);
+    devourBtn.attr("customer", postedBurger.customer.customer_name);
     $('#listedBurgers').append(newBurgerEntry);
     $('#devourBtnCont').append(devourBtn);
+  }
+
+  function updateBurger(burgerEntry) {
+    $.ajax({
+      method: "PUT",
+      url: "/api/burgers",
+      data: burgerEntry
+    });
   }
 
   //adds a new customer to database
@@ -92,7 +104,7 @@ $(document).ready(function() {
       };
 
       $.post("/api/burgers", addedBurger, getBurgerList);
-      console.log(customerId);
+     
    
     $("#burgerInput").val("");
   }
@@ -102,9 +114,24 @@ $(document).ready(function() {
     insertCustomer();
   });
 
-  $(".devour-form").on("submit", function(event) {
-    event.preventDefault();
+  $(document).on("click", ".devoured", function(){
     
+    
+    var burger = $(this).attr("burgerName");
+    var eatenCustomer = $(this).attr("customer");
+    console.log($(this).attr("customer"));
+    var id = $(this).attr("tableId");
+
+    var updatedOrder = {
+      id: id,
+      devoured: true
+    };
+   
+    var eatenDiv = $('<div>');
+    eatenDiv.text(burger + " eaten by " + eatenCustomer);
+    eatenDiv.addClass("border text-right bg-white p-1 mb-2 text-muted");
+    $('#eatenContainer').append(eatenDiv);
+    updateBurger(updatedOrder);
 
   });
 
