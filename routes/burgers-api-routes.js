@@ -16,19 +16,6 @@ module.exports = function(app) {
     });
 });
   
-    // Get route for retrieving a single burger entry
-    app.get("/api/burgers/:id", function(req, res) {
-      
-      db.burgers.findOne({
-        where: {
-          id: req.params.id
-        },
-        include: [db.customer]
-      }).then(function(results) {
-        
-        res.json(results);
-      });
-    });
   
     // route for saving a new burger
     app.post("/api/burgers", function(req, res) {
@@ -36,17 +23,6 @@ module.exports = function(app) {
         res.json(results);
       });
     });
-  
-//     // DELETE route for deleting posts
-//     app.delete("/api/posts/:id", function(req, res) {
-//       db.Post.destroy({
-//         where: {
-//           id: req.params.id
-//         }
-//       }).then(function(dbPost) {
-//         res.json(dbPost);
-//       });
-//     });
   
     // PUT route for updating posts
     app.put("/api/burgers", function(req, res) {
