@@ -1,11 +1,9 @@
-/*eslint-disable*/
 $(document).ready(function() {
   var postedBurger; 
 
   //function that grabs all api information
   function getBurgerList(customer) {
     $.get('/api/burgers', function(data) {
-      console.log('burgers', data);
       postedBurger = data;
       if (!postedBurger|| !postedBurger.length) {
         displayEmpty();
@@ -89,8 +87,10 @@ $(document).ready(function() {
     $.get('api/customers', function(data){
       var id = data[data.length - 1].id
       insertBurger(id);
+      $('#customerInput').val('');
+      $('#burgerInput').val('');
     });
-    $('#customerInput').val('');
+    
   }
 
   //adds a new burger to database
@@ -101,13 +101,13 @@ $(document).ready(function() {
         customerId: data
       };
       $.post('/api/burgers', addedBurger, getBurgerList);
-    $('#burgerInput').val('');
   }
 
   //event listener for submit button
-  $('#submitBtn').on('click', function(){
+  $("#form").submit(function(event){
     event.preventDefault();
     insertCustomer();
+    
   });
 
   //event listener for devour button
