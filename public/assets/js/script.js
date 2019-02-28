@@ -116,6 +116,7 @@ $(document).ready(function() {
     var eatenCustomer = $(this).attr('customer');
     var id = $(this).attr('tableId');
     
+    //changes devour column to true for specific burger
     var updatedOrder = {
       id: id,
       devoured: true
