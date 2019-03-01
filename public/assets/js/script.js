@@ -81,6 +81,7 @@ $(document).ready(function() {
     }
   }
 
+
   //function used when the user clicks devour button to update the devour column to true
   function updateBurger(burgerEntry) {
     $.ajax({
