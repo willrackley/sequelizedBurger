@@ -122,6 +122,7 @@ $(document).ready(function() {
 
   //event listener for devour button
   $(document).on('click', '.devoured', function(){
+
     var burger = $(this).attr('burgerName');
     var eatenCustomer = $(this).attr('customer');
     var id = $(this).attr('tableId');
@@ -130,7 +131,8 @@ $(document).ready(function() {
     var updatedOrder = {
       id: id,
       burger_name: burger,
-      devoured: true
+      devoured: true,
+      customerId: id 
     };
     
     var eatenDiv = $('<div>');
