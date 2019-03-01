@@ -28,11 +28,25 @@ $(document).ready(function() {
   function initializeRows() {
     $('#listedBurgers').empty();
     $('#devourBtnCont').empty();
+    $('#eatenContainer').empty();
     var burgersToAdd = [];
+    var devouredBurgs = [];
     for (var i = 0; i < postedBurger.length; i++) {
       burgersToAdd.push(createNewRow(postedBurger[i]));
+      if(postedBurger[i].devoured){
+        devouredBurgs.push(createEatenRow(postedBurger[i]));
+      }
     }
     $('#listedBurgers').append(burgersToAdd);
+    $('#eatenContainer').append(devouredBurgs);
+  }
+  
+
+  function createEatenRow(postedBurger) {
+    var Entry = $('<div>');
+    Entry.addClass('border bg-white p-1 mb-2');
+    Entry.text(postedBurger.id + '. ' + postedBurger.burger_name + ' (eaten by ' + postedBurger.customer.customer_name + ')');
+    $('#eatenContainer').append(Entry);
   }
 
   //creates rows for the api items to be display
@@ -47,7 +61,7 @@ $(document).ready(function() {
       devourBtn.addClass('p-1 btn btn-secondary mb-2 devoured');
       devourBtn.text('Devour it!');
       devourBtn.attr('tableId', postedBurger.id);
-      devourBtn.attr('disabled','disabled');
+      devourBtn.addClass('no-click');
       devourBtn.attr('burgerName', postedBurger.burger_name);
       devourBtn.attr('customer', postedBurger.customer.customer_name);
       $('#listedBurgers').append(newBurgerEntry);
@@ -81,33 +95,28 @@ $(document).ready(function() {
     var addedCustomer = {
       customer_name: $('#customerInput').val().trim(),
     };
-
     $.post('/api/customers', addedCustomer);
-
-    $.get('api/customers', function(data){
-      var id = data[data.length - 1].id
-      insertBurger(id);
-      $('#customerInput').val('');
-      $('#burgerInput').val('');
-    });
-    
+    insertBurger();
   }
 
   //adds a new burger to database
-  function insertBurger(data) {
+  function insertBurger(id) {
+    $.get('api/customers', function(data){
       var addedBurger = {
         burger_name: $('#burgerInput').val().trim(),
         devoured: false,
-        customerId: data
+        customerId: data[data.length - 1].id
       };
       $.post('/api/burgers', addedBurger, getBurgerList);
+      $('#customerInput').val('');
+      $('#burgerInput').val('');
+    });
   }
 
   //event listener for submit button
   $("#form").submit(function(event){
     event.preventDefault();
     insertCustomer();
-    
   });
 
   //event listener for devour button
@@ -124,10 +133,10 @@ $(document).ready(function() {
     
     var eatenDiv = $('<div>');
     eatenDiv.text(id + '. ' + burger + ' (eaten by ' + eatenCustomer + ')');
-    eatenDiv.addClass('border text-right bg-white p-1 mb-2 text-muted');
+    eatenDiv.addClass('border bg-white p-1 mb-2');
     $('#eatenContainer').append(eatenDiv);
     updateBurger(updatedOrder);
-    $(this).attr('disabled','disabled');
+    $(this).addClass('no-click');
     
   });
   getBurgerList();
