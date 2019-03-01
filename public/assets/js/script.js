@@ -128,6 +128,7 @@ $(document).ready(function() {
     //changes devour column to true for specific burger
     var updatedOrder = {
       id: id,
+      burger_name: burger,
       devoured: true
     };
     
