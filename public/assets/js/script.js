@@ -144,10 +144,6 @@ $(document).ready(function() {
 
     });
 
-    // var eatenDiv = $('<div>');
-    // eatenDiv.text(id + '. ' + burger + ' (eaten by ' + eatenCustomer + ')');
-    // eatenDiv.addClass('border bg-white p-1 mb-2');
-    // $('#eatenContainer').append(eatenDiv);
     
     $(this).addClass('no-click');
     
