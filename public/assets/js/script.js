@@ -126,7 +126,7 @@ $(document).ready(function() {
     var burger = $(this).attr('burgerName');
     var eatenCustomer = $(this).attr('customer');
     var id = $(this).attr('tableId');
-    
+    var index = id - 1
     //changes devour column to true for specific burger
     var updatedOrder = {
       id: id,
@@ -134,12 +134,21 @@ $(document).ready(function() {
       devoured: true,
       customerId: id 
     };
-    
-    var eatenDiv = $('<div>');
-    eatenDiv.text(id + '. ' + burger + ' (eaten by ' + eatenCustomer + ')');
-    eatenDiv.addClass('border bg-white p-1 mb-2');
-    $('#eatenContainer').append(eatenDiv);
     updateBurger(updatedOrder);
+
+    $.get('api/burgers', function(data){
+      var eatenDiv = $('<div>');
+      eatenDiv.text(data[index].id + '. ' + data[index].burger_name + ' (eaten by ' + data[index].customer.customer_name + ')');
+      eatenDiv.addClass('border bg-white p-1 mb-2');
+      $('#eatenContainer').append(eatenDiv);
+
+    });
+
+    // var eatenDiv = $('<div>');
+    // eatenDiv.text(id + '. ' + burger + ' (eaten by ' + eatenCustomer + ')');
+    // eatenDiv.addClass('border bg-white p-1 mb-2');
+    // $('#eatenContainer').append(eatenDiv);
+    
     $(this).addClass('no-click');
     
   });
