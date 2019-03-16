@@ -23,3 +23,6 @@
 * The customer sequelized model is comprised of one 'column' (customer_name). Customer_name has the datatype of string, can not be null, and has a validation of atleast consisting of 1 character.
 
 * We associate the customer table with the burgers table with the 'hasMany' method. If the customer gets deleted then it would automatically get delete the corresponding burger.
+
+## view the app at the link below
+https://polar-cliffs-21869.herokuapp.com/
